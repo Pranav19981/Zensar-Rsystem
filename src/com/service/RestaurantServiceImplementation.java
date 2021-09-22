@@ -55,7 +55,7 @@ public class RestaurantServiceImplementation implements RestaurantService {
 	}
 
 	@Override
-	public  List<Restaurant> searchRestaurant(Restaurant rs) {
+	public  Restaurant searchRestaurant(String rs) {
 		// TODO Auto-generated method stub
 		return restauranDao.searchRestaurant(rs);
 	}

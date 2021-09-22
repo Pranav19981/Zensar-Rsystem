@@ -175,7 +175,7 @@ public class RestaurantDaoImplementation implements RestaurantDao {
 			 preparedStatment.setString(6, rs.getName());
 			 status2=preparedStatment.executeUpdate();
 			
-			System.out.println("jii"+status2);	
+			
 			  
 		  }
 		  catch(SQLException | ClassNotFoundException e)
@@ -205,31 +205,33 @@ public class RestaurantDaoImplementation implements RestaurantDao {
 	}
 
 	@Override
-	public List<Restaurant>  searchRestaurant(Restaurant rs) {
+	public Restaurant  searchRestaurant(String rs) {
 		// TODO Auto-generated method stub
-		ArrayList<Restaurant> restaurantList1 = new ArrayList<>();
-		 int statussearch=0;
+		//ArrayList<Restaurant> restaurantList1 = new ArrayList<>();
+		
 		  Connection connection=null;
 		  PreparedStatement preparedStatment=null;
 		  ResultSet resultSet = null;
+		  Restaurant restaurant=null;
 		  try {
                     connection=ConnectionFactory.getConnection();
                     preparedStatment=connection.prepareStatement("select * from rest where name=?");
-                    preparedStatment.setString(1, rs.getName());
+                    preparedStatment.setString(1, rs);
                     resultSet = preparedStatment.executeQuery();
 
-        			
-        				Restaurant restaurant = new Restaurant();
+        			while(resultSet.next()){
+        				restaurant = new Restaurant();
         				restaurant.setName(resultSet.getString("name"));
         				restaurant.setOtime(resultSet.getInt("otime"));
         				restaurant.setCtime(resultSet.getInt("ctime"));
         				restaurant.setPhone(resultSet.getInt("phone"));
         				restaurant.setAddr(resultSet.getString("addr"));
         				restaurant.setCuisine(resultSet.getString("cuisine"));
-        				restaurantList1.add(restaurant);
-
+        				//restaurantList1.add(restaurant);
+        			}
         			
-                    statussearch=preparedStatment.executeUpdate();
+                   // statussearch=preparedStatment.executeUpdate();
+                    System.out.println("ji");
 		  }catch(SQLException | ClassNotFoundException e)
 		  {
 			  e.printStackTrace();
@@ -251,7 +253,7 @@ public class RestaurantDaoImplementation implements RestaurantDao {
 		  }
 		  
 	// TODO Auto-generated method stub
-	return restaurantList1;
+	return restaurant;
 	}
 	}
 

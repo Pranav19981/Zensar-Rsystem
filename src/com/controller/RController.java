@@ -2,7 +2,8 @@ package com.controller;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
-
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import com.model.Restaurant;
 
@@ -13,11 +14,12 @@ import com.service.RestaurantServiceImplementation;
 
 
 public class RController {
-
+	static String str;
 	public static void main(String[] args) {
 	Scanner scanner=new Scanner(System.in);
 	
-		
+	       String regex = "([01]?[0-9]|2[0-3]):[0-5][0-9]";
+	        Pattern p = Pattern.compile(regex);
 	      RestaurantService restaurantService= new RestaurantServiceImplementation();
 	     
 		List<Restaurant> restaurantList=restaurantService.getAllRestaurants();
@@ -25,7 +27,7 @@ public class RController {
 				
 		
 		
-		System.out.println("**********   All  Restaurant Name ***************");
+		System.out.println("**********   All  Restaurant Name **************");
 		while (itr.hasNext()) {
 			Restaurant restaurant = (Restaurant) itr.next();
 			//System.out.println("Enter Restaurant IDe:- "+ restaurant.());
@@ -36,6 +38,8 @@ public class RController {
 			System.out.println("**************************************");*/
 			
 		}
+		
+		do {
 		System.out.println("Enter Your Choice");
 		System.out.println("1.Add Restaurant");
 		System.out.println("2.Delete Restaurant");
@@ -48,20 +52,47 @@ public class RController {
 		case 1:
 			System.out.println(" ");
 			System.out.println("******* Enter  Restaurant information ************");
+		
 			System.out.println("Enter Restaurant Name:- ");
 			String restaurantName=scanner.next();
+			if( restaurantName!= null && restaurantName.matches("^[a-zA-Z0-9]*$"))
+			{
+				System.out.println("This is valid Restaurant ");
+			}else
+			{
+				System.out.println("THis is Not Valid Restaurant Name :- ");
+				System.out.println("Enter Restaurant Name Again:- ");
+				 restaurantName=scanner.next();
+			}
 			System.out.println("Enter Restaurant Out time:- ");
 			int restaurantOtime=scanner.nextInt();
+			String time=String.valueOf(restaurantOtime);
+			//Matcher m = p.matcher(time);
+		/*	if(time.matches(regex))
+			{
+				System.out.println("This is Valid Time:- ");
+			}else {
+				System.out.println("Please Enter Valid Time:- ");
+				System.out.println("Enter Restaurant Out time:- ");
+				restaurantOtime=scanner.nextInt();
+			}*/
+			
 			System.out.println("Enter Restaurant Close time:- ");
 			int restaurantCtime=scanner.nextInt();
 			System.out.println("Enter Restaurant Phone:- ");
 			int restaurantPhone=scanner.nextInt();
 			String rsphone=String.valueOf(restaurantPhone);
 			
-			 if(!rsphone.matches("\\d{10}"))
+			 if(rsphone.matches("\\d{10}"))
 	    	 {
-	    		 System.out.println("Enter valid  mobile number" );
+	    		 System.out.println("This is  valid  mobile number" );
 	    	 }
+			 else
+			 {
+				 System.out.println("This is  not valid  mobile number" );
+				 System.out.println("Enter Restaurant Phone:- ");
+					restaurantPhone=scanner.nextInt();
+			 }
 	   	
 			System.out.println("Enter Restaurant Address:- ");
 			String restaurantAddr=scanner.next();
@@ -122,30 +153,36 @@ int status2=restaurantService.updateRestaurant(rs2);
 		case 4:
 			System.out.println("Search the Restaurant");
 			String restaurantName3=scanner.next();
-			Restaurant rs3=new Restaurant(restaurantName3);
-			List<Restaurant> restaurantList1=restaurantService.searchRestaurant(rs3);
+		//	Restaurant rs3=new Restaurant(restaurantName3);
+			Restaurant restaruntDetails=restaurantService.searchRestaurant(restaurantName3);
 			 
-			Iterator<Restaurant> itr1=restaurantList.iterator();
-			
+			if (restaruntDetails != null) {
 			
 			
 			System.out.println("**********   All  Restaurant Name ***************");
-			while (itr1.hasNext()) {
-				Restaurant restaurant = (Restaurant) itr1.next();
-				//System.out.println("Enter Restaurant IDe:- "+ restaurant.());
-				System.out.println( restaurant.getName());
-				System.out.println(" Restaurant Otime:- "+ restaurant.getOtime());
-				System.out.println(" Restaurant Ctime:- "+ restaurant.getCtime());
-				System.out.println(" Restaurant phone:- "+ restaurant.getPhone());
+			
+			
+				System.out.println( restaruntDetails.getName());
+				System.out.println(" Restaurant Otime:- "+ restaruntDetails.getOtime());
+				System.out.println(" Restaurant Ctime:- "+ restaruntDetails.getCtime());
+				System.out.println(" Restaurant phone:- "+ restaruntDetails.getPhone());
+				System.out.println(" Restaurant Address:- "+ restaruntDetails.getAddr());
+				System.out.println(" Restaurant cuisine:- "+ restaruntDetails.getCuisine());
 				System.out.println("**************************************");
-				
+			}else
+			{
+				System.out.println("Record not available");
 			}
+			
 			break;
 		default :
 			System.out.println("Enter Valid Choice");
 		}
 		
-	
+		System.out.println();
+		System.out.println("Do you wish to continue(y/n)?");
+		str = scanner.next();
+	} while (str.equals("y") || str.equals("Y"));
 	    
 	}
 }

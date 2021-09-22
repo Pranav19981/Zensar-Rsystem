@@ -9,7 +9,7 @@ public interface RestaurantDao {
 	int addRestaurant(Restaurant rs);
 	int deleteRestaurant(Restaurant rs);
 	int updateRestaurant(Restaurant rs);
-	List<Restaurant> searchRestaurant(Restaurant rs);
+	Restaurant searchRestaurant(String rs);
 }
 
 
