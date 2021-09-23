@@ -28,7 +28,7 @@ public class RestaurantDaoImplementation implements RestaurantDao {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
-		final String QUERY = "select * from rest";
+		final String QUERY = "select * from rest where status=1";
 		try {
 			connection = ConnectionFactory.getConnection();
 			preparedStatement = connection.prepareStatement(QUERY);
@@ -38,9 +38,9 @@ public class RestaurantDaoImplementation implements RestaurantDao {
 			{
 				Restaurant restaurant = new Restaurant();
 				restaurant.setName(resultSet.getString("name"));
-				restaurant.setOtime(resultSet.getInt("otime"));
-				restaurant.setCtime(resultSet.getInt("ctime"));
-				restaurant.setPhone(resultSet.getInt("phone"));
+				restaurant.setOtime(resultSet.getString("otime"));
+				restaurant.setCtime(resultSet.getString("ctime"));
+				restaurant.setPhone(resultSet.getString("phone"));
 				restaurant.setAddr(resultSet.getString("addr"));
 				restaurant.setCuisine(resultSet.getString("cuisine"));
 				restaurantList.add(restaurant);
@@ -86,17 +86,18 @@ public class RestaurantDaoImplementation implements RestaurantDao {
 		PreparedStatement preparedStatement = null;
 		try {
 			connection = ConnectionFactory.getConnection();
-			preparedStatement = connection.prepareStatement("insert into rest values(?,?,?,?,?,?)");
+			preparedStatement = connection.prepareStatement("insert into rest values(?,?,?,?,?,?,?)");
 			
 			
 			preparedStatement.setString(1, rs.getName());
-			preparedStatement.setInt(2, rs.getOtime());
-			preparedStatement.setInt(3, rs.getCtime());
-			preparedStatement.setInt(4, rs.getPhone());
+			preparedStatement.setString(2, rs.getOtime());
+			preparedStatement.setString(3, rs.getCtime());
+			preparedStatement.setString(4, rs.getPhone());
 			preparedStatement.setString(5, rs.getAddr());
 			preparedStatement.setString(6, rs.getCuisine());
+			preparedStatement.setInt(7, rs.getStatus());
 			status=preparedStatement.executeUpdate();
-			System.out.println("jii"+status);	
+				
 		} catch (Exception e) 
 		{
 			// TODO: handle exception
@@ -167,9 +168,9 @@ public class RestaurantDaoImplementation implements RestaurantDao {
 			 connection=ConnectionFactory.getConnection();
 			 preparedStatment=connection.prepareStatement("update rest SET otime=?,ctime=?,phone=?,addr=?,cuisine=? Where name=?");
 			// preparedStatment.setString(1, rs.getName());
-			 preparedStatment.setInt(1, rs.getOtime());
-			 preparedStatment.setInt(2, rs.getCtime());
-			 preparedStatment.setInt(3, rs.getPhone());
+			 preparedStatment.setString(1, rs.getOtime());
+			 preparedStatment.setString(2, rs.getCtime());
+			 preparedStatment.setString(3, rs.getPhone());
 			 preparedStatment.setString(4, rs.getAddr());
 			 preparedStatment.setString(5, rs.getCuisine());
 			 preparedStatment.setString(6, rs.getName());
@@ -222,9 +223,9 @@ public class RestaurantDaoImplementation implements RestaurantDao {
         			while(resultSet.next()){
         				restaurant = new Restaurant();
         				restaurant.setName(resultSet.getString("name"));
-        				restaurant.setOtime(resultSet.getInt("otime"));
-        				restaurant.setCtime(resultSet.getInt("ctime"));
-        				restaurant.setPhone(resultSet.getInt("phone"));
+        				restaurant.setOtime(resultSet.getString("otime"));
+        				restaurant.setCtime(resultSet.getString("ctime"));
+        				restaurant.setPhone(resultSet.getString("phone"));
         				restaurant.setAddr(resultSet.getString("addr"));
         				restaurant.setCuisine(resultSet.getString("cuisine"));
         				//restaurantList1.add(restaurant);

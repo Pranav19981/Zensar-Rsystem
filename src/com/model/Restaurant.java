@@ -2,19 +2,24 @@ package com.model;
 
 public class Restaurant {
 	String name;
-	int otime;
-	int ctime;
-	int phone;
+	String otime;
+	String ctime;
+	String phone;
 	String addr;
 	String cuisine;
+	int status;
 	
+	
+
+
+
 	public Restaurant() {
 		
 	}
 	
 	
 	
-	public Restaurant(String name, int otime, int ctime, int phone,String addr,String cuisine) {
+	public Restaurant(String name, String otime, String ctime, String phone,String addr,String cuisine,int status) {
 		super();
 		this.name = name;
 		this.otime = otime;
@@ -22,6 +27,8 @@ public class Restaurant {
 		this.phone = phone;
 		this.addr=addr;
 		this.cuisine=cuisine;
+		this.status=status;
+		
 	}
 	
 	
@@ -54,24 +61,33 @@ public class Restaurant {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public int getOtime() {
+	public String getOtime() {
 		return otime;
 	}
-	public void setOtime(int otime) {
+	public void setOtime(String otime) {
 		this.otime = otime;
 	}
-	public int getCtime() {
+	public String getCtime() {
 		return ctime;
 	}
-	public void setCtime(int ctime) {
+	public void setCtime(String ctime) {
 		this.ctime = ctime;
 	}
-	public int getPhone() {
+	public String getPhone() {
 		return phone;
 	}
-	public void setPhone(int phone) {
+	public void setPhone(String phone) {
 		this.phone = phone;
 	}
 	
+	public int getStatus() {
+		return status;
+	}
+
+
+
+	public void setStatus(int status) {
+		this.status = status;
+	}
 
 }

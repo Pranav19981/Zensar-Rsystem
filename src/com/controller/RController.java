@@ -25,9 +25,7 @@ public class RController {
 		List<Restaurant> restaurantList=restaurantService.getAllRestaurants();
 		Iterator<Restaurant> itr=restaurantList.iterator();
 				
-		
-		
-		System.out.println("**********   All  Restaurant Name **************");
+		System.out.println("**********   All  Active Restaurant Name ***************");
 		while (itr.hasNext()) {
 			Restaurant restaurant = (Restaurant) itr.next();
 			//System.out.println("Enter Restaurant IDe:- "+ restaurant.());
@@ -38,6 +36,10 @@ public class RController {
 			System.out.println("**************************************");*/
 			
 		}
+		System.out.println(" ");
+		
+		
+	
 		
 		do {
 		System.out.println("Enter Your Choice");
@@ -65,42 +67,95 @@ public class RController {
 				 restaurantName=scanner.next();
 			}
 			System.out.println("Enter Restaurant Out time:- ");
-			int restaurantOtime=scanner.nextInt();
-			String time=String.valueOf(restaurantOtime);
+			String restaurantOtime=scanner.next();
+			
 			//Matcher m = p.matcher(time);
-		/*	if(time.matches(regex))
+			if(restaurantOtime.matches(regex))
 			{
 				System.out.println("This is Valid Time:- ");
 			}else {
-				System.out.println("Please Enter Valid Time:- ");
+				System.out.println("This is not valid time Please Enter Valid Time:- ");
 				System.out.println("Enter Restaurant Out time:- ");
-				restaurantOtime=scanner.nextInt();
-			}*/
+				restaurantOtime=scanner.next();
+			}
 			
 			System.out.println("Enter Restaurant Close time:- ");
-			int restaurantCtime=scanner.nextInt();
-			System.out.println("Enter Restaurant Phone:- ");
-			int restaurantPhone=scanner.nextInt();
-			String rsphone=String.valueOf(restaurantPhone);
+			String restaurantCtime=scanner.next();
 			
-			 if(rsphone.matches("\\d{10}"))
-	    	 {
+			
+			
+			
+			if(restaurantCtime.matches(regex))
+			{
+				System.out.println("This is Valid Time:- ");
+			}else {
+				System.out.println("This is not valid time Please Enter Valid Time:- ");
+				System.out.println("Enter Restaurant Out time:- ");
+				restaurantCtime=scanner.next();
+			}
+			
+			System.out.println("Enter Restaurant Phone:- ");
+			String restaurantPhone=scanner.next();
+			
+			
+			Pattern pattern = Pattern.compile(("(0/91)?[7-9][0-9]{9}"));
+			Matcher match = pattern.matcher(restaurantPhone);
+			
+			
+			
+			 if(match.find() && match.group().equals(restaurantPhone))
+	    	 {	
 	    		 System.out.println("This is  valid  mobile number" );
 	    	 }
 			 else
 			 {
 				 System.out.println("This is  not valid  mobile number" );
 				 System.out.println("Enter Restaurant Phone:- ");
-					restaurantPhone=scanner.nextInt();
+					restaurantPhone=scanner.next();
+					
 			 }
 	   	
 			System.out.println("Enter Restaurant Address:- ");
 			String restaurantAddr=scanner.next();
-			System.out.println("Enter Restaurant Cuisine:- ");
-			String restaurantCuisine=scanner.next();
+			System.out.println("Select Cuisine:- ");
+			
+			System.out.println("---------1.Indian:- ");
+			System.out.println("---------2.Maxican:- ");
+			System.out.println("---------3.Chineese:- ");
+			System.out.println("---------4.Italian:- ");
+			    int c=scanner.nextInt();
+			    String restaurantCuisine=null;
+			   switch(c) {
+			   case 1:
+				   restaurantCuisine="Indian";
+				   break;
+			   case 2:
+				   restaurantCuisine="Maxican";
+				   break;
+			   case 3:
+				   restaurantCuisine="Chineese";
+				   break;
+			   case 4:
+				   restaurantCuisine="Italian";
+				   break;
+			   }
 			
 			
-			Restaurant rs=new Restaurant(restaurantName,restaurantOtime,restaurantCtime,restaurantPhone,restaurantAddr,restaurantCuisine);
+			
+			
+			
+			System.out.println("Enter Restaurant Status:- ");
+			
+			System.out.println("---------1.Activate:- ");
+			System.out.println("---------2.Deactivate:- ");
+			int restatus=scanner.nextInt();
+			
+			 	
+			
+			
+			
+			
+			Restaurant rs=new Restaurant(restaurantName,restaurantOtime,restaurantCtime,restaurantPhone,restaurantAddr,restaurantCuisine,restatus);
 			
 		    int status=restaurantService.addRestaurant(rs);
 		    if(status>0) {
@@ -129,17 +184,19 @@ public class RController {
 			//System.out.println("Enter Restaurant Name:- ");
 			//String restaurantName22=scanner.next();
 			System.out.println("Enter Restaurant Out time:- ");
-			int restaurantOtime3=scanner.nextInt();
+			String restaurantOtime3=scanner.next();
 			System.out.println("Enter Restaurant Close time:- ");
-			int restaurantCtime4=scanner.nextInt();
+			String restaurantCtime4=scanner.next();
 			System.out.println("Enter Restaurant Phone:- ");
-			int restaurantPhone5=scanner.nextInt();
+			String restaurantPhone5=scanner.next();
 			System.out.println("Enter Restaurant Address:- ");
 			String restaurantAddr6=scanner.next();
 			System.out.println("Enter Restaurant Cuisine:- ");
 			String restaurantCuisine7=scanner.next();
+			System.out.println("Enter Restaurant Status:- ");
+			int  rstatus=scanner.nextInt();
 			//Restaurant rs2=new Restaurant(restaurantName2);
-			Restaurant rs2=new Restaurant(restaurantName2,restaurantOtime3,restaurantCtime4,restaurantPhone5,restaurantAddr6,restaurantCuisine7);
+			Restaurant rs2=new Restaurant(restaurantName2,restaurantOtime3,restaurantCtime4,restaurantPhone5,restaurantAddr6,restaurantCuisine7,rstatus);
 			
 int status2=restaurantService.updateRestaurant(rs2);
 			
